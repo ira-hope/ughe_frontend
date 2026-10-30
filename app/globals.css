@@ -1,0 +1,639 @@
+/* UGHE brand colours (taken from the ughe.org stylesheet) */
+:root {
+  --ughe-red: #ae152d;
+  --ughe-maroon: #9d2235;
+  --ughe-gold: #eba720;
+  --ughe-dark: #252525;
+  --ughe-grey: #696969;
+  --ughe-light: #f5f5f5;
+  --white: #ffffff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* The whole site uses Roboto Slab, loaded in app/layout.js */
+body {
+  margin: 0;
+  font-family: var(--font-slab), "Rockwell", "Courier New", serif;
+  color: var(--ughe-dark);
+  background: var(--white);
+  line-height: 1.6;
+}
+
+img,
+video,
+iframe {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+.page-message {
+  text-align: center;
+  padding: 80px 16px;
+}
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-block;
+  padding: 10px 22px;
+  border: 2px solid transparent;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+.btn-red {
+  background: var(--ughe-red);
+  color: var(--white);
+}
+.btn-red:hover {
+  background: var(--ughe-maroon);
+}
+.btn-outline {
+  border-color: var(--ughe-red);
+  color: var(--ughe-red);
+  background: transparent;
+}
+.btn-outline:hover {
+  background: var(--ughe-red);
+  color: var(--white);
+}
+.btn-dark {
+  background: var(--ughe-dark);
+  color: var(--white);
+}
+.btn-gold {
+  background: var(--ughe-gold);
+  color: var(--ughe-dark);
+}
+.btn-gold:hover {
+  background: var(--white);
+}
+.btn:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+/* ---------- Header ---------- */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--white);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+.header-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+.header-logo img {
+  height: 56px;
+  width: auto;
+}
+.top-buttons {
+  display: flex;
+  gap: 10px;
+}
+.menu-toggle {
+  display: none;
+  font-size: 28px;
+  background: none;
+  border: none;
+  color: var(--ughe-red);
+  cursor: pointer;
+}
+.main-nav {
+  border-top: 1px solid #ededed;
+}
+.main-nav > ul {
+  display: flex;
+  gap: 4px;
+  list-style: none;
+  margin: 0 auto;
+}
+.nav-item {
+  position: relative;
+}
+.nav-item > a {
+  display: block;
+  padding: 14px 14px;
+  font-weight: 500;
+  font-size: 15px;
+}
+.nav-item > a:hover {
+  color: var(--ughe-red);
+}
+.caret {
+  margin-left: 4px;
+  font-size: 11px;
+}
+/* Dropdown appears when hovering a menu item */
+.dropdown {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 260px;
+  list-style: none;
+  margin: 0;
+  padding: 8px 0;
+  background: var(--white);
+  border-top: 3px solid var(--ughe-red);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+.nav-item:hover .dropdown {
+  display: block;
+}
+.dropdown a {
+  display: block;
+  padding: 8px 18px;
+  font-size: 14px;
+}
+.dropdown a:hover {
+  background: var(--ughe-light);
+  color: var(--ughe-red);
+}
+.mobile-only {
+  display: none;
+}
+
+/* ---------- Slideshow ---------- */
+.slideshow {
+  position: relative;
+  height: 78vh;
+  min-height: 420px;
+  overflow: hidden;
+  background: #111;
+}
+.slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.8s ease;
+}
+.slide.is-active {
+  opacity: 1;
+  z-index: 1;
+}
+.slide-media {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border: 0;
+}
+/* YouTube iframes cannot use object-fit, so we scale them to cover the area */
+iframe.slide-media {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 177.78vh;
+  min-width: 100%;
+  height: 56.25vw;
+  min-height: 100%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+.slide-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.65) 0%, rgba(0, 0, 0, 0.1) 70%);
+}
+.slide-caption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 90px;
+  color: var(--white);
+}
+.slide-caption h1 {
+  margin: 0 0 12px;
+  font-size: clamp(32px, 5vw, 56px);
+  line-height: 1.1;
+  max-width: 700px;
+}
+.slide-caption p {
+  max-width: 600px;
+  font-size: 18px;
+  margin: 0 0 24px;
+}
+.slide-arrow {
+  position: absolute;
+  top: 50%;
+  z-index: 2;
+  transform: translateY(-50%);
+  width: 48px;
+  height: 48px;
+  border: none;
+  background: rgba(0, 0, 0, 0.4);
+  color: var(--white);
+  font-size: 32px;
+  cursor: pointer;
+}
+.slide-arrow:hover {
+  background: var(--ughe-red);
+}
+.slide-arrow.prev {
+  left: 16px;
+}
+.slide-arrow.next {
+  right: 16px;
+}
+.slide-dots {
+  position: absolute;
+  bottom: 30px;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+.slide-dots button {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid var(--white);
+  background: transparent;
+  cursor: pointer;
+}
+.slide-dots button.is-active {
+  background: var(--ughe-gold);
+  border-color: var(--ughe-gold);
+}
+
+/* ---------- Sections ---------- */
+.section {
+  padding: 80px 0;
+}
+/* Background colours that can be chosen in Django Admin */
+.bg-white {
+  background: var(--white);
+}
+.bg-light {
+  background: var(--ughe-light);
+}
+.bg-red {
+  background: var(--ughe-red);
+  color: var(--white);
+}
+.bg-dark {
+  background: var(--ughe-dark);
+  color: var(--white);
+}
+.section-title {
+  font-size: clamp(28px, 3.5vw, 40px);
+  margin: 0 0 16px;
+  color: var(--ughe-red);
+}
+.bg-red .section-title,
+.bg-dark .section-title {
+  color: var(--white);
+}
+.section-intro {
+  color: var(--ughe-grey);
+  max-width: 700px;
+}
+.center {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+/* Section button colour changes with the section background */
+.btn-section {
+  background: var(--ughe-red);
+  color: var(--white);
+}
+.bg-red .btn-section {
+  background: var(--white);
+  color: var(--ughe-red);
+}
+.btn-section:hover {
+  background: var(--ughe-gold);
+  color: var(--ughe-dark);
+}
+
+/* Stats */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 32px;
+  margin-top: 40px;
+}
+.stat {
+  text-align: center;
+  padding: 0 8px;
+  border-left: 3px solid var(--ughe-gold);
+}
+.stat-value {
+  font-size: 52px;
+  font-weight: 700;
+  color: var(--ughe-red);
+  line-height: 1;
+}
+.stat-value sup {
+  font-size: 20px;
+  margin-left: 2px;
+}
+.stat-label {
+  color: var(--ughe-grey);
+  font-size: 15px;
+}
+
+/* Feature (text + image) */
+.feature {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 56px;
+  align-items: center;
+}
+/* Swap image to the left side when chosen in Django Admin */
+.feature.image-left .feature-image {
+  order: 0;
+}
+.feature.image-right .feature-image {
+  order: 2;
+}
+.feature-image img {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+}
+.feature-text p {
+  font-size: 17px;
+  margin: 0 0 28px;
+}
+.video-frame {
+  position: relative;
+  aspect-ratio: 16 / 9;
+}
+.video-frame iframe,
+.video-frame video {
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* News */
+.news-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.link-arrow {
+  color: var(--ughe-red);
+  font-weight: 700;
+}
+.news-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+  margin-top: 24px;
+}
+.news-card {
+  background: var(--white);
+  border: 1px solid #ededed;
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+.news-card:hover {
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.1);
+  transform: translateY(-3px);
+}
+.news-card img {
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+}
+.news-body {
+  padding: 18px;
+}
+.news-meta {
+  font-size: 13px;
+  color: var(--ughe-grey);
+}
+.news-meta strong {
+  color: var(--ughe-red);
+  margin-right: 6px;
+}
+.news-body h3 {
+  margin: 8px 0 0;
+  font-size: 18px;
+  line-height: 1.35;
+}
+
+/* ---------- Footer ---------- */
+.footer {
+  background: var(--ughe-dark);
+  color: #d6d6d6;
+  font-size: 15px;
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr 1fr;
+  gap: 40px;
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+.footer-logo {
+  height: 60px;
+  width: auto;
+  margin-bottom: 16px;
+}
+.footer h4 {
+  color: var(--white);
+  margin: 0 0 12px;
+  font-size: 17px;
+  border-bottom: 2px solid var(--ughe-gold);
+  display: inline-block;
+  padding-bottom: 4px;
+}
+.footer p {
+  margin: 0 0 8px;
+}
+.footer a:hover {
+  color: var(--ughe-gold);
+}
+.socials {
+  display: flex;
+  gap: 10px;
+}
+.socials a {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--ughe-red);
+  color: var(--white);
+  font-weight: 700;
+  font-size: 14px;
+}
+.footer-bottom {
+  background: var(--ughe-maroon);
+  color: var(--white);
+  padding: 16px 0;
+  font-size: 14px;
+}
+.footer-bottom-inner {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.footer-bottom nav {
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+/* ---------- Login page ---------- */
+.login-page {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 16px;
+  background: linear-gradient(135deg, var(--ughe-maroon), var(--ughe-red));
+}
+.login-card {
+  width: 100%;
+  max-width: 400px;
+  background: var(--white);
+  padding: 36px 32px;
+  border-top: 5px solid var(--ughe-gold);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+}
+.login-logo {
+  height: 56px;
+  width: auto;
+  margin: 0 auto 16px;
+}
+.login-card h1 {
+  text-align: center;
+  color: var(--ughe-red);
+  margin: 0;
+  font-size: 26px;
+}
+.login-help {
+  text-align: center;
+  color: var(--ughe-grey);
+  margin: 4px 0 20px;
+}
+.login-card label {
+  font-weight: 500;
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+.login-card input {
+  padding: 10px 12px;
+  margin-bottom: 16px;
+  border: 1px solid #ccc;
+  font-family: inherit;
+  font-size: 15px;
+}
+.login-card input:focus {
+  outline: 2px solid var(--ughe-gold);
+  border-color: var(--ughe-gold);
+}
+.login-error {
+  color: var(--ughe-red);
+  background: #fde8eb;
+  padding: 8px 12px;
+  margin: 0 0 16px;
+  font-size: 14px;
+}
+
+/* ---------- Tablet and phone screens ---------- */
+@media (max-width: 960px) {
+  .top-buttons {
+    display: none;
+  }
+  .menu-toggle {
+    display: block;
+  }
+  /* Menu is hidden until the ☰ button is pressed */
+  .main-nav {
+    display: none;
+  }
+  .main-nav.is-open {
+    display: block;
+  }
+  .main-nav > ul {
+    flex-direction: column;
+    padding-bottom: 12px;
+  }
+  .dropdown {
+    position: static;
+    display: block;
+    box-shadow: none;
+    border: none;
+    padding: 0 0 0 16px;
+  }
+  .mobile-only {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 12px 14px;
+  }
+  .mobile-only button {
+    align-self: flex-start;
+    font-family: inherit;
+    background: none;
+    border: none;
+    padding: 0;
+    color: var(--ughe-red);
+    font-weight: 700;
+    cursor: pointer;
+  }
+  .stats-grid,
+  .news-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .feature,
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  /* On small screens the image always goes on top */
+  .feature.image-right .feature-image {
+    order: 0;
+  }
+  .feature-image img {
+    height: 260px;
+  }
+}
+
+@media (max-width: 600px) {
+  .stats-grid,
+  .news-grid {
+    grid-template-columns: 1fr;
+  }
+  .section {
+    padding: 56px 0;
+  }
+  .slide-arrow {
+    display: none;
+  }
+}

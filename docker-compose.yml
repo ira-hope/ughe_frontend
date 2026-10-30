@@ -1,0 +1,11 @@
+# Runs the Next.js frontend on http://localhost:3000
+# (start the backend repository first, it runs on http://localhost:8000)
+services:
+  frontend:
+    build:
+      context: .
+      args:
+        # The browser calls the Django API at this address
+        NEXT_PUBLIC_API_URL: http://localhost:8000
+    ports:
+      - "3000:3000"
